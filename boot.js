@@ -12,7 +12,7 @@ GameStates.Boot = function (game) {  //declare the boot state
 GameStates.Boot.prototype = {
     preload: function () {
         // load assets to be used later in the preloader e.g. for loading screen / splashscreen
-        this.load.image('preloaderBar', 'assets/preloader-bar.png');
+        this.load.image('cr', 'assets/cr_logo.png');
     },
     create: function () {
         // setup game environment

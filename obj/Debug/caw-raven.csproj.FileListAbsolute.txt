@@ -1,0 +1,6 @@
+c:\users\max\code\caw-raven\caw-raven\caw-raven\bin\caw-raven.dll.config
+c:\users\max\code\caw-raven\caw-raven\caw-raven\bin\caw-raven.dll
+c:\users\max\code\caw-raven\caw-raven\caw-raven\bin\caw-raven.pdb
+c:\users\max\code\caw-raven\caw-raven\caw-raven\obj\Debug\caw-raven.csprojResolveAssemblyReference.cache
+c:\users\max\code\caw-raven\caw-raven\caw-raven\obj\Debug\caw-raven.dll
+c:\users\max\code\caw-raven\caw-raven\caw-raven\obj\Debug\caw-raven.pdb
