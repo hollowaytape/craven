@@ -5,6 +5,7 @@
 
     var bg;
     var player;
+    var caterp;
     var cursors;
     var jumpButton;
 
@@ -17,13 +18,20 @@ GameStates.Game.prototype = {
         map.addTilesetImage('sky_sprites', 'sky_sprites');
         bg = this.add.tileSprite(0, 0, 768, 512, 'night_bg');
 
-        backgroundLayer = map.createLayer('background');
+        backgroundLayer = map.createLayer('backgroundLayer');
         blockedLayer = map.createLayer('blockedLayer');
 
         this.physics.arcade.gravity.y = 300;
         this.setupPlayer();
+        this.setupEnemy();
+
         cursors = this.input.keyboard.createCursorKeys();
         jumpButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
+        // collision on blockedLayer
+        // setCollisionsBetween(start, stop, collides, layer, recalculate)
+        // look in the tiled json to find out what numbers to put in params.
+        map.setCollision(4, true, 'blockedLayer');
     },
 
     setupPlayer: function () {
@@ -35,6 +43,14 @@ GameStates.Game.prototype = {
         player.anchor.setTo(.5, 1); // flip around the center
         //player.animations.add('move', *numbers*, true); // wait until animated to add this
 
+    },
+
+    setupEnemy: function() {
+        caterp = this.add.sprite(400, 400, 'caterp');
+        this.physics.enable(caterp, Phaser.Physics.ARCADE);
+        caterp.body.collideWorldBounds = true;
+        caterp.anchor.setTo(.5, 1);
+        // also set up animations
     },
 
     update: function () {
@@ -58,6 +74,8 @@ GameStates.Game.prototype = {
         if (jumpButton.isDown && player.body.onFloor()) {
             player.body.velocity.y = -250;
         }
+
+        this.physics.arcade.collide(player, blockedLayer);
     },
 
     render: function () { }
