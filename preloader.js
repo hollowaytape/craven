@@ -16,7 +16,7 @@ GameStates.Preloader.prototype = {
 
         this.load.image('night_bg', 'assets/night_768.png');
         this.load.spritesheet('player', 'assets/spritesheets/guy.png', 32, 64);
-        this.load.spritesheet('caterp', 'assets/spritesheets/caterpillar.png', 135, 64);
+        this.load.spritesheet('caterp', 'assets/spritesheets/caterpillar.png', 68, 32);
     },
 
     create: function () {
