@@ -8,6 +8,8 @@
     var caterp;
     var cursors;
     var jumpButton;
+    //var enemySpeed = 40;
+    //var enemyDir = 'right';
 
 };
 
@@ -50,6 +52,7 @@ GameStates.Game.prototype = {
         this.physics.enable(caterp, Phaser.Physics.ARCADE);
         caterp.body.collideWorldBounds = true;
         caterp.anchor.setTo(.5, 1);
+        caterp.facing = 'right';
         // also set up animations
     },
 
@@ -76,6 +79,60 @@ GameStates.Game.prototype = {
         }
 
         this.physics.arcade.collide(player, blockedLayer);
+
+        this.physics.arcade.collide(caterp, blockedLayer, this.moveCaterp);
+        // player death
+        this.physics.arcade.overlap(player, caterp, this.playerHit, null, this);
+
+        if (caterp.body.blocked.right == true && caterp.facing == 'right') {
+            //player.x = 12;
+            caterp.body.velocity.x *= -1;
+            caterp.facing = 'right';
+            //caterp.animations.play('move-enemy-left');
+        }
+        else if (caterp.body.blocked.left == true && caterp.facing == 'left') {
+            //player.x = 12;
+            caterp.body.velocity.x *= -1;
+            caterp.facing = 'right';
+            //caterp.animations.play('move-enemy-right');
+        }
+        else if (this.checkForCliff(caterp.facing) == true) {
+            caterp.body.velocity.x *= -1;
+            if (caterp.facing == 'right') {
+                caterp.facing = 'left';
+                // play animation
+            }
+            else {
+                caterp.facing = 'right';
+                // play animation
+            }
+        }
+    },
+
+    moveCaterp: function() {
+        caterp.body.velocity.x = enemySpeed;
+    },
+
+    playerHit: function() {
+        player.kill();
+        this.setupPlayer();
+    },
+
+    checkForCliff: function(side) {
+        var offsetX; //check tile ahead of sprite, not right under
+        if (side == 'left') {
+            offsetX = -3;
+        } else if (side == 'right') {
+            offsetX = 23;
+        }
+
+        var tile = map.getTileWorldXY(caterp.body.x + offsetX, caterp.body.y + 48, 32, 32, blockedLayer);
+
+        if (caterp.body.onFloor() && tile == null) {
+            return true;
+        } else {
+            return false;
+        }
     },
 
     render: function () { }
